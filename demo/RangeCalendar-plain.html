@@ -3,44 +3,66 @@
     <head>
         <meta charset="UTF-8" />
         <title>RangeCalendar - ESUI Demo</title>
-        <script src="loader/esl.js"></script>
+
+        <script type="text/javascript" src="../build/esui-origin.js"></script>
+
+        <!-- // <script src="loader/esl.js"></script>
+        <script src="loader/almond.js"></script>
+
+        <script src="../dep/mini-event/1.0.2/src/main.js"></script>
+        <script src="../dep/mini-event/1.0.2/src/Event.js"></script>
+        <script src="../dep/mini-event/1.0.2/src/lib.js"></script>
+        <script src="../dep/mini-event/1.0.2/src/EventQueue.js"></script>
+        <script src="../dep/mini-event/1.0.2/src/EventTarget.js"></script>
+
+        <script src="../dep/underscore/1.7.0/src/underscore.js"></script>
+
+        <script src="../dep/moment/2.9.0/src/moment.js"></script>
+
+        <script src="../dep/etpl/3.0.0/src/main.js"></script>
+        <script src="../dep/etpl/3.0.0/src/tpl.js"></script>
+        -->
+
+
         <script>
-            require.config({
-                'baseUrl': '../src',
-                'paths': {},
-                'packages': [
-                    {
-                        'name': 'mini-event',
-                        'location': '../dep/mini-event/1.0.2/src',
-                        'main': 'main'
-                    },
-                    {
-                        'name': 'underscore',
-                        'location': '../dep/underscore/1.7.0/src',
-                        'main': 'underscore2'
-                    },
-                    {
-                        'name': 'moment',
-                        'location': '../dep/moment/2.9.0/src',
-                        'main': 'moment'
-                    },
-                    {
-                        'name': 'etpl',
-                        'location': '../dep/etpl/3.0.0/src',
-                        'main': 'main'
-                    },
-                    {
-                        'name': 'esui',
-                        'location': '../src',
-                        'main': 'main'
-                    }
-                ]
-            });
+            // require.config({
+            //     'baseUrl': '../src',
+            //     'paths': {},
+            //     'packages': [
+            //         {
+            //             'name': 'mini-event',
+            //             'location': '../dep/mini-event/1.0.2/src',
+            //             'main': 'main'
+            //         },
+            //         {
+            //             'name': 'underscore',
+            //             'location': '../dep/underscore/1.7.0/src',
+            //             'main': 'underscore'
+            //         },
+            //         {
+            //             'name': 'moment',
+            //             'location': '../dep/moment/2.9.0/src',
+            //             'main': 'moment'
+            //         },
+            //         {
+            //             'name': 'etpl',
+            //             'location': '../dep/etpl/3.0.0/src',
+            //             'main': 'main'
+            //         },
+            //         {
+            //             'name': 'esui',
+            //             'location': '../src',
+            //             'main': 'main'
+            //         }
+            //     ]
+            // });
         </script>
         <script src="../src/customShim.js"></script>
         <script src="jquery-1.9.1.min.js"></script>
+
         <link rel="stylesheet" href="demo.css" />
-        <link rel="stylesheet" href="../src/css/main.css" />
+        <link rel="stylesheet" href="../build/css/esui.css" />
+        <!-- <link rel="stylesheet" href="../src/css/main.css" /> -->
     </head>
     <body>
         <header>RangeCalendar</header>
@@ -84,6 +106,8 @@
             <p class="desc-title">
             实例展示
             </p>
+
+            <!--
             <div class="demo-container">
                 <div data-ui-type="RangeCalendar" data-ui-name="test"
                     data-ui-id="test"
@@ -101,6 +125,9 @@
                     data-ui-mini-mode="1"
                     data-ui-range="2013-10-01 00:00:00,2013-07-10 23:59:59"></esui-range-calendar>
                 </div>
+                -->
+
+                <div id="calendar"></div>
                 <!--
                 <div class="control-panel">
                     <button id="disposeBtn">dispose掉第一个！</button>
@@ -122,26 +149,40 @@
                     </p>
                 </div>-->
             </div>
-            <h2>非连续时间段选择控件</h2>
-            <div data-ui-type="RichCalendar" data-ui-name="test4"
-                data-ui-id="test4"
-                data-ui-range="2013-07-03,2013-09-29"
-                data-ui-value="2013-07-03,2013-07-28,2013-07-29,2013-07-29,2013-08-01,2013-08-27">
         </div>
+
+
         <script>
-        require(
-            [
-                'esui',
-                'esui/RangeCalendar',
-                'esui/RichCalendar'
-            ],
-            function (ui) {
-                var calendar = ui.init()[0];
-                // document.getElementById('disposeBtn').onclick = function(){
-                //     calendar.dispose();
-                // };
+
+
+        // var calendar = esui.init()[0];
+
+        var cal = esui.create(
+            'RangeCalendar',
+            {
+                "type": "RangeCalendar",
+                "name": "test",
+                "id": "test",
+                "value": "2013-03-02 00:00:00,2013-05-01",
+                "endlessCheck": "false",
+                "isEndless": "true",
+                "range": "2011-03-02 00:00:00,2014-04-02 23:59:59",
+                "showedShortCut": "昨天,最近7天,上周",
+                "extensions": [],
+                "renderOptions": {},
+                "main": $('#calendar')[0]
             }
-        )
+        );
+
+        cal.render();
+
+        cal.on('change', function (event) {
+            console.log(event.begin);
+            console.log(event.end);
+        });
+
+        cal.range.begin = new Date();
+
         </script>
     </body>
 </html>
