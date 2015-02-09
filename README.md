@@ -10,7 +10,9 @@ demo/RangeCalendar-plain.html
 
 在build中：sh build.sh
 
-##集成esui要做的事情（长久没做，可能没说全哦）：
+##集成esui要做的事情
+
+（长久没做，可能没说全哦）
 
 1. 在engine中，搜“isEcuiControl”，在这个地方，类同得，加上esui的：“增加事件监听器”和“fire事件”的逻辑。
     （总共两处：addEventListener、dispatchEvent两个方法中）。
